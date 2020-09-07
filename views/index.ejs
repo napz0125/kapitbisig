@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<body>
+  <!-- Navigation -->    
+    <%- include('layouts/navbar' + userType); -%>       
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div>            
+           <h3> Approved Listing</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <% for (var i = 0; i < approvedListing.length; i++) { %>
+        <div class="post-preview">
+          <a href="/detail/<%= approvedListing[i]._id %> ">
+            <h2 class="detail">
+             <%= approvedListing[i].title %>
+            </h2>
+            <h3 class="post-subtitle">
+              <%= approvedListing[i].detailedtext %>
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="/user"><%= approvedListing[i].userid %></a>
+            on <%= approvedListing[i].createdon %></p>
+        </div>
+        <hr>
+        <% } %>                    
+        <!-- Pager TODO  : Pagination here -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">More Posts &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Footer -->
+  <%- include('layouts/footer'); -%>  
+  
+</body>
+
+</html>
