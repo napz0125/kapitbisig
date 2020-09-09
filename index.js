@@ -1,6 +1,7 @@
 const express = require('express')
 const expressSession = require('express-session');
 const app = new express()
+const fileUpload = require('express-fileupload')
 
 const path = require('path')
 const ejs = require('ejs')
@@ -34,6 +35,12 @@ app.get('/', homeController)
 
 const registrationController = require('./controller/registrationcontroller')
 app.post('/registrationtype', registrationController.getRegistrationType)
+
+app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir : path.join(__dirname, '/public/','upload')
+}));
+
 app.post('/registration',registrationController.post)
 
 const loginController = require('./controller/logincontroller')
@@ -46,7 +53,6 @@ const detailController = require('./controller/detailcontroller')
 app.get('/detail/:id', detailController)
 
 app.post("/savelistingtodonor",async (req,res)=>{
-  console.log(req.body);
   //update the listing.how about error on update? TODO
   await Listing.updateOne( { _id : req.body.listing_id},{$set: {donorid:req.body.donor_id,status:4,modifiedon:Date.now()}}); 
   res.json({ result: 'OK' })
@@ -61,12 +67,10 @@ app.get('/api/getcountry',dataController.country)
 
 
 //testing form
-//app.get('/registration1',(req,res) => {
-  //res.render('registration1')
-//})
+app.get('/registration0',(req,res) => {
+  res.render('registration0')
+})
 //end test form
-
-
 
 app.use(function(req,res){
   res.status(404).render('notfound');

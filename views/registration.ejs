@@ -1,8 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('layouts/header'); -%>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Kapit-Bisig Pinoy</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	
+	<!-- Font Awesome if you need it
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  -->
+	<link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css">
+
+	<!--Replace with your tailwind.css once created-->
+	
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+
+	<!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+	<style>
+		.gradient {
+			background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+		}
+		
+	</style>  
+  
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
   
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
   
@@ -11,9 +37,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.2/js/fileinput.min.js"></script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-  <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+  <script src="/js/bootstrap-datetimepicker.js"></script>
   <script src="/js/registration.js"></script>
 
+</head>
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
 <!--Nav-->
 <%- include('layouts/navbar'); -%>
@@ -23,7 +50,7 @@
           <div class="row">
               <div class="col-lg-8 col-md-12 mx-auto">
                 <p>Fill up the below form to register and we will review and get back to you as soon as possible!</p>
-                <form action="/registration" method="POST" id="formcreateuser">
+                <form action="/registration" method="POST" id="formcreateuser" enctype="multipart/form-data">
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <input type="email" class="form-control" id="txtEmail" name="email" placeholder="Email" required autofocus>              
@@ -80,7 +107,8 @@
                     </div>
                   </div>            
                   <br>
-                  <div id="usertype" value=" <%= userType %>" >                    
+                  <div id="usertype" value="<%= userType %>" name="usertype" >     
+                    <input type="hidden" name="usertype" value="<%= userType %>" >               
                     <div class="form-row" id="divEmploymetdeclaration">
                       <div class="form-group col-md-6">
                         <div class="form-check">
@@ -99,19 +127,19 @@
                         <textarea class="form-control" rows="8" id="txtMoreInfoHelp" name="detailedtext" placeholder="Tell us more why you need help??"
                           required></textarea>
                       </div>
-                    </div>
-          
+                    </div>          
                     <br>
                     <div class="form-row" id="divHelpduration">
                       <div class="form-group col-md-12">
                         <label>Until when do you need help?</label>
                       </div>
                     </div>
-                    <br>
+                    <br>                 
+                    <div style="color:black">
                     <div class="form-row" id="divHelpDurationCalendar">
                       <div class="form-group col-md-6">
                         <div class='input-group date' id='datetimepickerfrom'>
-                          <input type='text' class="form-control" placeholder="from date" name="activefrom" id= "txtFromDate"/>
+                          <input type='text' class="form-control" placeholder="from date" name="activefrom" id= "txtFromDate" />
                           <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -126,6 +154,7 @@
                         </div>
                       </div>
                     </div>
+                  </div>
                     <div class="form-group" id="divPhotoLabel">
                       <div class="form-group col-md-12">
                         <label >
@@ -136,7 +165,7 @@
                     <div class="form-group" id="divPhotoUpload">           
                         <div class="form-group col-md-12">                                
                               <span class="btn btn-default btn-file">
-                                  <input id="input-2" name="input2[]" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
+                                  <input id="image" name="input2" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
                               </span>                
                       </div>
                     </div>         
@@ -153,7 +182,7 @@
                       <!-- Button -->                                         
                         <button type="submit"  id="btnSubmit" 
                         class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full mt-4 lg:mt-0 py-4 px-8">Submit</button>						                        
-                        <button type="button"  id="btnCancel" 
+                        <button type="button"  id="btnCancel" onclick="location.href='/'"
                         class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full mt-4 lg:mt-0 py-4 px-8">Cancel</button>			                        
                       </div>    
                 </form>

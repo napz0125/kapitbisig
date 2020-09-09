@@ -1,17 +1,37 @@
 
 $(function () { 
-  $('#datetimepickerfrom,#datetimepickerfromto').datetimepicker(); 
+  $('#datetimepickerfromto').datetimepicker(); 
+});
+
+$(function () { 
+  $('#datetimepickerfrom').datetimepicker()
+  .on('change', function(ev){                 
+      $('#datetimepickerfrom').datetimepicker('hide');
+  });
 });
 
 $(document).ready(function() {
     var userType = $('#usertype').attr("value");
     if(userType !=1 )
-    {
+    {      
       $('#usertype').hide(); 
+      $('#divEmploymetdeclaration').hide();
+      $('#divHelpduration').hide();
+      $('#divPhotoId').hide();
+      $('#divDeclaration').hide();
+      $('#divHelpDurationCalendar').hide();
+      $('#divMoreHelpDesc').hide();   
+      $('#divPhotoLabel').hide();
+      $('#divPhotoUpload').hide();
+
+      $("#txtMoreInfoHelp").removeAttr("required");
+      $("#chkTruthDeclaration").removeAttr("required");      
     }
     else
     {
       $('#usertype').show(); 
+      $("#txtMoreInfoHelp").attr("required","");
+      $("#chkTruthDeclaration").attr("required","");      
     }
 });
 

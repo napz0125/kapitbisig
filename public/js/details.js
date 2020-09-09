@@ -24,8 +24,7 @@ $(document).ready(function() {
 });
 
 $(function () { 
-    $('#btnSave').on('click', function (event) { 
-        console.log(this.formAction);
+    $('#btnSave').on('click', function (event) {         
         var urlSaveListingToDonor = 'http://localhost:4000/savelistingtodonor/'
         var listingid=$('#listingid').val();
         var userid = $('#usrid').val();
@@ -33,8 +32,7 @@ $(function () {
         posting.done(function( data ) {           
             var content = data.result;
             $('#result').empty().append( content + '. This listing is matched to you. We thank you for your generousity.' );     
-            $('#modalWillHelp').modal('hide');  
-            console.log($('#result'));      
+            $('#modalWillHelp').modal('hide');                
             $('#btnIWilHelp').hide(); 
             $('#btnCancel').hide();      
             $('.alert').toggle()
