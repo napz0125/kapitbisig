@@ -6,15 +6,14 @@ const UserSchema = new Schema({
     lastname: String,
     fbprofile : String,
     email : String,
-    password:String,//to be improved!
+    password:String,
     phone: String,
     address:String,
     city:String,
     country: String,
     zip:String,
-    usertype: { type: Number, default: 1 },//1 in need, 2 donor, 3 admin/verifier 4 super admin  
-    isblocked : Boolean,//for abusive 
-    isactive : Boolean,
+    usertype: { type: Number, default: 1 },//1 beneficiary, 2 donor, 3 admin/verifier 4 super admin  
+    status : {type : Number},//1-unverified,2 - active, 3 - blocked for abusive=>        
     createdon: Date,
     modifiedon: Date
 });

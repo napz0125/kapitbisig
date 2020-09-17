@@ -26,7 +26,7 @@ app.use(express.static('public'))
 app.use(favicon(path.join(__dirname, '/public', 'img/bayanihan-ngayun2.ico')));
 
 const authmiddleware = require('./middleware/authmiddleware');
-//app.use(authmiddleware);
+app.use(authmiddleware.checkedSession);
 
 app.disable('x-powered-by')
 
@@ -37,14 +37,16 @@ const registrationController = require('./controller/registrationcontroller')
 app.post('/registrationtype', registrationController.getRegistrationType)
 
 app.use(fileUpload({
-  useTempFiles : true,
-  tempFileDir : path.join(__dirname, '/public/','upload')
+  //useTempFiles : true,
+  //tempFileDir : path.join(__dirname, '/public/','upload')
+  //debug:true
 }));
 
 app.post('/registration',registrationController.post)
 
 const loginController = require('./controller/logincontroller')
-app.get('/login', loginController)
+app.get('/login', loginController.loginPage)
+app.post('/users/login',loginController.loginLogic)
 
 const logOutController = require('./controller/logoutcontroller')
 app.get('/logout', logOutController)
@@ -58,17 +60,18 @@ app.post("/savelistingtodonor",async (req,res)=>{
   res.json({ result: 'OK' })
 })
 
-const loginUserController = require('./controller/loginusercontroller')
-app.post('/users/login',loginUserController)
-
 //api for constant data point
 const dataController = require('./controller/datacontroller')
 app.get('/api/getcountry',dataController.country)
 
+const listingController = require('./controller/listingcontroller')
+app.get('/listing',listingController.alllisting);
+app.get('/listing/:listingid/:reviewerid',listingController.assignReviewer);
+app.get('/mylisting',listingController.getMyList);
 
 //testing form
-app.get('/registration0',(req,res) => {
-  res.render('registration0')
+app.get('/testing',async (req,res) => {
+  res.render('testinghere',{list,userType,loggedinUser})   
 })
 //end test form
 

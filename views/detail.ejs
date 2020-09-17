@@ -1,53 +1,28 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <link
-    href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css"
-    rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.2/css/fileinput.min.css" media="all"
-    rel="stylesheet" type="text/css" />
-
+<html lang="en">
+  <%- include('layouts/header'); -%>
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-
-  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.2/js/fileinput.min.js"></script>
-
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-  <script
-    src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
   <script src="/js/details.js"></script>
-</head>
 
-<body>
-  <%- include('layouts/navbar' + userType); -%>
-  <header>
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-12 mx-auto">
-          <div class="page-heading">
-            <h1>LIST #<%= list.listingno %></h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-12 mx-auto">
-        <form id="formdetail">
-         
-          <div class="form-row">
+<body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+<!--Nav-->
+<%- include('layouts/navbar'); -%>
+<!--Hero-->
+<div class="pt-24">
+	<div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+		<!--Left Col-->
+		<div class="flex flex-col w-full ">		
+			<p class="leading-normal text-2xl mb-8">Make the right choice. Let's help each other!</p>			
+			<div>				
+				<form id="detail"  method="POST" action="" class="text-2xl mb-6">
+          <div class="form-row ">
             <div class="form-group col-md-12">
-              <label> Name : <%= _user[0].firstname + ' ' + _user[0].lastname   %> </label><label> </label>
+              <label> Name : <%= list.userinfo.firstname + ' ' + list.userinfo.lastname %></label><label> </label>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label> Phone : <%= _user[0].phone %> </label>
+              <label> Phone :<%= list.userinfo.phone %> </label>
             </div>
           </div>
           <div class="form-row">
@@ -57,7 +32,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label>FB Profle : <%= _user[0].fbprofile %></label>
+              <a href="<%= list.userinfo.fbprofile %>">FB Profle : <%= list.userinfo.fbprofile %></a>
             </div>
           </div>
 
@@ -68,102 +43,114 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
-              pic here todo
-            </div>
-          </div>
-          <br>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <div style="float: right;">
-                <button type="submit" class="btn btn-primary" form="formdetail" name="update"
-                  id="btnUpdate">Edit</button>
-                <!--for owner listing.only for listing status 3-unverified-->
-                <button type="button" class="btn btn-primary" form="formdetail" name="delete" id="btnDelete"
-                  data-toggle="modal" data-target="#modalDelete">Delete</button>
-                <!--for owner listing once approved.hide this-->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalWillHelp"  id="btnIWilHelp">I'll
-                  Help</button>
-                <!--for donor-->
-                <button type="submit" class="btn btn-primary" form="formdetail" name="approve"
-                  id="btnApprove">Approve</button>
-                <!--for verifier-->
-                <button type="button" class="btn btn-primary" id="btnCancel">Cancel</button>
-                <input type="hidden" id="userType" value="<%= userType %>">
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-          <div class="alert alert-success alert-dismissible" style='display:none;' id="result">Test
-            <button data-dismiss="alert" type="button" class="close" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-            </div>
-          </div>
-          <!-- The modal Delete-->
-          <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h4 class="modal-title" id="modalLabelLarge">Delete Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                  Are you sure you want to delete this listing?
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-secondary">Yes, Delete</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-            <!-- The modal will help-->
-            <div class="modal fade" id="modalWillHelp" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge"
-            aria-hidden="true" data-backdrop="false">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">                  
-                  <h4 class="modal-title" id="modalLabelLarge">Willing to help</h4>
-                </div>
-                <div class="modal-body">
-                  Are you sure you want to help this person(s)?
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" id="btnSave" form="formdetail" name="donor">Yes, proceed.</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">No, close.</button>
-                </div>
-              </div>
-            </div>
-          </div>
+				<img src="<%= list.imagepath[0] %>" %> />
+				<img src="<%= list.imagepath[1] %>" %> />
 
-          <!----->
-          <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" data-backdrop="false">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h3>Modal Body</h3>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btnClose" class="btn btn-default" data-dismiss="modal" >Close</button>
-                        <button type="button" id="btnSave1" class="btn btn-primary" name="saveHelp" >Save changes</button>
-                   </div>
+				<img src="/upload/tmp-4-1600327259703" />
+				
             </div>
-            <!--todo.until i know how to handle this-->
-            <input type="hidden" value="<%= loggedinUser %>" id="usrid">
-            <input type="hidden" value="<%= list._id %>" id="listingid">
-        </form>
-      </div>
-    </div>
-  </div>
+          </div>
+          <div style="float: right;" class="text-1xl mb-6">
+            <button type="submit" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg" form="formdetail" name="update"
+			id="btnUpdate">Edit</button>
+			<!--for owner listing.only for listing status 3-unverified-->
+			<button type="button" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg" form="formdetail" name="delete" id="btnDelete"
+			data-toggle="modal" data-target="#modalDelete">Delete</button>
+			<!--for owner listing once approved.hide this-->
+			<button type="button" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg" data-toggle="modal" data-target="#modalWillHelp"  id="btnIWilHelp">I'll
+			Help</button>
+			<!--for donor-->
+			<button type="submit" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg" form="formdetail" name="approve"
+			id="btnApprove">Approve</button>
+			<button type="submit" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg" form="formdetail" name="approve"
+			id="btnReject">Reject</button>
+			<!--for verifier-->
+			<button type="button" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg" id="btnCancel">Cancel</button>
+			<input type="hidden" id="userType" value="<%= userType %>">
+          </div>
+			</form>			
+			</div>					
+		</div>	
+	</div>
+</div>
+<script>
+	   var scrollpos = window.scrollY;
+	var header = document.getElementById("header");
+	var navcontent = document.getElementById("nav-content");
+	var navLogin = document.getElementById("navLogin");
+	var brandname = document.getElementById("brandname");
+	var toToggle = document.querySelectorAll(".toggleColour");
+	document.addEventListener('scroll', function() {
+	/*Apply classes for slide in bar*/
+	scrollpos = window.scrollY;
+    if(scrollpos > 10){
+      header.classList.add("bg-white");
+	  navLogin.classList.remove("bg-white");
+	  navLogin.classList.add("gradient");
+	  navLogin.classList.remove("text-gray-800");
+	  navLogin.classList.add("text-white");
+	  //Use to switch toggleColour colours
+  	  for (var i = 0; i < toToggle.length; i++) {
+	     toToggle[i].classList.add("text-gray-800");
+		 toToggle[i].classList.remove("text-white");
+	  }
+	  header.classList.add("shadow");
+	  navcontent.classList.remove("bg-gray-100");
+	  navcontent.classList.add("bg-white");
+    }
+    else {
+	  header.classList.remove("bg-white");
+	  navLogin.classList.remove("gradient");
+	  navLogin.classList.add("bg-white");
+	  navLogin.classList.remove("text-white");
+	  navLogin.classList.add("text-gray-800");
+	  //Use to switch toggleColour colours
+  	  for (var i = 0; i < toToggle.length; i++) {
+	     toToggle[i].classList.add("text-white");
+		 toToggle[i].classList.remove("text-gray-800");
+	  }
+	  
+	  header.classList.remove("shadow");
+	  navcontent.classList.remove("bg-white");
+	  navcontent.classList.add("bg-gray-100");	  
+    }
+	});
+
+</script>
+<script>   
+	/*Toggle dropdown list*/
+	/*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+	
+	var navMenuDiv = document.getElementById("nav-content");
+	var navMenu = document.getElementById("nav-toggle");
+	
+	document.onclick = check;
+	function check(e){
+	  var target = (e && e.target) || (event && event.srcElement);
+	  
+	  //Nav Menu
+	  if (!checkParent(target, navMenuDiv)) {
+		// click NOT on the menu
+		if (checkParent(target, navMenu)) {
+		  // click on the link
+		  if (navMenuDiv.classList.contains("hidden")) {
+			navMenuDiv.classList.remove("hidden");
+		  } else {navMenuDiv.classList.add("hidden");}
+		} else {
+		  // click both outside link and outside menu, hide menu
+		  navMenuDiv.classList.add("hidden");
+		}
+	  }
+	  
+	}
+	function checkParent(t, elm) {
+	  while(t.parentNode) {
+		if( t == elm ) {return true;}
+		t = t.parentNode;
+	  }
+	  return false;
+	}
+</script>
+
 </body>
-
 </html>

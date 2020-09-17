@@ -3,21 +3,26 @@
 	<%- include('layouts/header'); -%>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
 		<!--Nav-->		
 		<%- include('layouts/navbar'); -%>
 	<div class="pt-24">
-		<div class="container">
+		<div class="container text-black">
 			<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 				<div class="panel panel-danger">
 				  <div class="panel-heading">
 					<div class="panel-title">Sign-In</div>
 					<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
 				  </div>
-				  <div style="padding-top:30px" class="panel-body">
-					<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>        
+				  <div style="padding-top:30px" class="panel-body">				
+					<div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">
+						<span id="invalidLogin"><%= invalidLogin %></span></div>    
+						<input type="hidden" id="inputtype" value="<%= invalidLogin %>">  				
 					<form id="loginform"  method="POST" action="/users/login">
-					  
+					 <div>
+						
+					 </div> 
 					  <div style="margin-bottom: 25px" class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 						<input id="login-username" type="text" class="form-control" name="userid" 
@@ -29,7 +34,7 @@
 					  </div>
 					  <div class="input-group">
 						<div class="checkbox">
-							<label><input type="checkbox" value="">Remember me</label>
+							<label><input type="checkbox" name="rememberme" >Remember me</label>
 						</div>
 					  </div>
 					  <div style="margin-top:10px" class="form-group">
@@ -66,10 +71,20 @@
 			</g>
 		</svg>
 	</div>
-
 	<!--Footer-->
-	<%- include('layouts/footer'); -%>
-	
+	<%- include('layouts/footer'); -%>	
+
+	<script>
+		$(document).ready(function() {		  		 			
+			if( $('#inputtype').val() !="")
+			{				
+			  $('#login-alert').removeAttr("style");
+			}
+		   
+
+		});      
+
+	  </script>
 </body>
 
 </html>

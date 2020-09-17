@@ -4,6 +4,7 @@ $(document).ready(function() {
     $('#btnDelete').hide(); 
     $('#btnIWilHelp').hide(); 
     $('#btnApprove').hide(); 
+    $('#btnReject').hide();  
 
     var uType = $('#userType').val();   
     if(uType ==1)
@@ -18,9 +19,9 @@ $(document).ready(function() {
     else if(uType==3)
     {
         $('#btnApprove').show();  
-    }          
-
-  
+        $('#btnReject').show();  
+        
+    }            
 });
 
 $(function () { 

@@ -124,7 +124,14 @@
                     </div>
                     <div class="form-row" id="divMoreHelpDesc">
                       <div class="form-group col-md-12">
-                        <textarea class="form-control" rows="8" id="txtMoreInfoHelp" name="detailedtext" placeholder="Tell us more why you need help??"
+                        <select id="txtTitle" class="form-control" name="needtype">
+                          <option selected>Please select...</option>                          
+                          <option>Grocery</option>
+                          <option>Medicine</option>
+                          <option>Clothes</option>
+                          <option>Others...</option>
+                        </select>  
+                        <textarea class="form-control" rows="8" id="txtMoreInfoHelp" name="detailedtext" placeholder="Please specify your need in details.."
                           required></textarea>
                       </div>
                     </div>          
@@ -165,7 +172,7 @@
                     <div class="form-group" id="divPhotoUpload">           
                         <div class="form-group col-md-12">                                
                               <span class="btn btn-default btn-file">
-                                  <input id="image" name="input2" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
+                                  <input id="image" name="input2[]" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
                               </span>                
                       </div>
                     </div>         

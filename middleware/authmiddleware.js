@@ -1,8 +1,7 @@
 const User = require('../model/usermodel')
-module.exports = (req, res, next) => {
-    User.findById(req.session.userId, (error, user) => {        
-        if (error || !user)
-            return res.redirect('/')       
-    })
-    next()
+const checkedSession = async (req, res, next) => {    
+
+   next()
 }
+
+exports.checkedSession = checkedSession;
