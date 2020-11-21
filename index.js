@@ -9,7 +9,7 @@ const ejs = require('ejs')
 var favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://admin:admin1234@cluster0.pnoir.mongodb.net/bayanihan?retryWrites=true&w=majority", {useNewUrlParser: true})
+mongoose.connect("", {useNewUrlParser: true})
 
 const bodyParser = require('body-parser');
 
